@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Матвей Чугаевский — технический писатель</title>
+<meta name="description" content="Матвей Чугаевский, технический писатель для IT-продуктов. Учебные работы на материалах Apache Spark: инструкции, справка по SQL, Git и Jira.">
+<meta name="theme-color" content="#2F5BEA">
+<meta property="og:title" content="Матвей Чугаевский — технический писатель">
+<meta property="og:description" content="Учебные работы на материалах Apache Spark.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%9D%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F3F5F8;--surface:#fff;--ink:#1B2333;--muted:#5B6577;--accent:#2F5BEA;--line:#DDE2EA;--note:#E8EEFF;--warn:#FFF1CF;--code:#1B2333;--codeink:#E6EAF2;
+--sans:"Onest",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;--mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12161F;--surface:#181D29;--ink:#E6EAF2;--muted:#9AA4B8;--accent:#7C9BFF;--line:#2A3142;--note:#1E2744;--warn:#3A3017;--code:#0C0F16}}
+:root[data-theme="dark"]{--bg:#12161F;--surface:#181D29;--ink:#E6EAF2;--muted:#9AA4B8;--accent:#7C9BFF;--line:#2A3142;--note:#1E2744;--warn:#3A3017;--code:#0C0F16}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.65 var(--sans)}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{display:grid;grid-template-columns:230px minmax(0,1fr);max-width:1060px;margin:0 auto;gap:48px;padding:0 24px}
+nav{position:sticky;top:env(safe-area-inset-top,0px);align-self:start;padding:40px 0;font-size:15px}
+nav b{display:block;margin-bottom:14px}
+nav a{display:block;padding:5px 0 5px 12px;border-left:2px solid var(--line);color:var(--muted);text-decoration:none}
+nav a:hover,nav a.on{color:var(--ink);border-color:var(--accent)}
+main{padding:40px 0 80px;min-width:0}
+section{margin-bottom:64px}
+h1{font-size:clamp(30px,5vw,44px);line-height:1.15;margin:0 0 12px;letter-spacing:-.02em}
+h2{font-size:26px;line-height:1.25;margin:0 0 8px;letter-spacing:-.01em}
+h3{font-size:18px;margin:0 0 4px}
+p{margin:0 0 14px;max-width:68ch}
+.lead{font-size:19px;color:var(--muted)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin:20px 0 0;background:var(--surface)}
+.seg button,.tabs button{font:500 14px var(--sans);padding:8px 14px;border:0;background:none;color:var(--muted);cursor:pointer}
+.seg button[aria-pressed="true"],.tabs button[aria-selected="true"]{background:var(--accent);color:#fff}
+.doc{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:24px 28px;margin-top:10px}
+.doc h4{margin:0 0 6px;font-size:22px}
+.doc ul{margin:0 0 12px;padding-left:20px}
+.src{font:400 14px/1.7 var(--mono);white-space:pre-wrap;color:var(--ink);margin:0}
+.src i{color:var(--accent);font-style:normal}
+[hidden]{display:none!important}
+.note{border-left:4px solid var(--accent);background:var(--note);padding:10px 14px;border-radius:0 8px 8px 0;margin:14px 0;font-size:15px}
+.note.warn{border-color:#C98A00;background:var(--warn)}
+.tool{display:grid;grid-template-columns:130px 1fr;gap:6px 24px;padding:20px 0;border-top:1px solid var(--line)}
+.tool h3{margin:0}
+.tool p{margin:0 0 8px}
+.tool ul{margin:0;padding-left:18px;font-size:16px}
+.tabs{display:flex;flex-wrap:wrap;gap:4px;margin:18px 0 0;border-bottom:1px solid var(--line)}
+.tabs button{border-radius:8px 8px 0 0}
+pre.code{background:var(--code);color:var(--codeink);font:400 14px/1.65 var(--mono);padding:18px 20px;border-radius:0 0 10px 10px;margin:0;overflow-x:auto}
+.cap{font-size:15px;color:var(--muted);margin:12px 0}
+.steps{list-style:none;counter-reset:s;padding:0;margin:16px 0 0}
+.steps li{counter-increment:s;position:relative;padding:0 0 18px 48px}
+.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;font:500 15px/32px var(--mono);text-align:center}
+.steps li::after{content:"";position:absolute;left:15px;top:36px;bottom:4px;width:2px;background:var(--line)}
+.steps li:last-child::after{display:none}
+.steps b{display:block}
+.contact{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.contact a{padding:9px 16px;border:1px solid var(--line);background:var(--surface);border-radius:8px;text-decoration:none;color:var(--ink);font-weight:500}
+.contact a:hover{border-color:var(--accent)}
+footer{font-size:14px;color:var(--muted);padding-top:20px;border-top:1px solid var(--line)}
+@media (max-width:820px){
+.wrap{grid-template-columns:1fr;gap:0;padding:0 16px}
+nav{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:5;display:flex;gap:6px;overflow-x:auto;padding:10px 0;border-bottom:1px solid var(--line)}
+nav b{display:none}nav a{border:1px solid var(--line);border-radius:20px;padding:4px 12px;white-space:nowrap}
+.tool{grid-template-columns:1fr}.doc{padding:18px}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.pane .code{border-radius:10px;white-space:pre}
+.pane>.cap{margin:14px 0 10px}
+.tbl{border-collapse:collapse;width:100%;font-size:15px;margin:12px 0;background:var(--surface)}
+.tbl th,.tbl td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+.tbl th{background:var(--note)}
+code{font:14px var(--mono);background:var(--note);padding:1px 5px;border-radius:4px}
+.jira{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px 24px;margin-top:10px}
+.jira h3{margin:10px 0 10px;font-size:20px}
+.jh{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.chip{font-size:13px;padding:2px 10px;border-radius:12px;background:var(--note)}
+.chip.hi{background:var(--warn)}.chip.st{background:var(--accent);color:#fff}
+.jira dl{display:grid;grid-template-columns:130px 1fr;gap:4px 16px;margin:0 0 14px;font-size:15px}
+.jira dt{color:var(--muted)}.jira dd{margin:0}
+.jira ul{margin:0 0 12px;padding-left:20px}
+.page{background:#fff;color:#111;font:15px/1.5 "Times New Roman",Times,serif;border:1px solid var(--line);border-radius:4px;padding:28px 44px;max-width:640px;margin:10px auto 0;box-shadow:0 2px 10px rgba(0,0,0,.12)}
+.page p,.page li{max-width:none;margin:0 0 6px}
+.page h5{font:700 18px "Times New Roman",serif;margin:14px 0 6px}
+.page h6{font:700 16px "Times New Roman",serif;margin:10px 0 6px}
+.page .ph{font-size:12px;color:#666;border-bottom:1px solid #999;padding-bottom:4px;margin-bottom:12px}
+.page .tbl{background:#fff;font:14px "Times New Roman",serif;color:#111}
+.page .tbl th{background:#eee}.page .tbl td,.page .tbl th{border-color:#777}
+.page .tc{font-size:14px;margin:8px 0 2px}
+.page code{background:#eee;color:#111}
+.page .fig{border:1px dashed #999;text-align:center;padding:24px;font-size:13px;color:#777;margin:10px 0 4px}
+.page .nt{font-size:14px;margin-top:10px}
+.page .pf{text-align:center;font-size:12px;color:#666;margin-top:14px}
+.work{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:22px 26px;margin:16px 0}
+.work h3{font-size:20px;margin:0 0 12px}
+.work dl{display:grid;grid-template-columns:130px 1fr;gap:6px 16px;margin:0 0 14px;font-size:16px}
+.work dt{color:var(--muted)}.work dd{margin:0}
+.links{margin:0}.links a{font-weight:500}
+details summary{cursor:pointer;font-weight:500;color:var(--accent);margin-bottom:6px}
+@media (max-width:820px){.work{padding:18px}.work dl{grid-template-columns:1fr;gap:2px}.work dd{margin-bottom:8px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav aria-label="Содержание">
+<b>Содержание</b>
+<a href="#about">Обо мне</a>
+<a href="#tools">Инструменты</a>
+<a href="#works">Работы</a>
+</nav>
+<main>
+<section id="about">
+<h1>Матвей Чугаевский</h1>
+<p class="lead">Технический писатель для IT-продуктов. Пишу инструкции и справки для разработчиков и аналитиков: запуск приложений, SQL-запросы, работа с Git.</p>
+<div class="note">Все работы учебные. Они написаны на материалах открытого проекта Apache Spark и не входят в его официальную документацию.</div>
+</section>
+<section id="tools">
+<h2>Инструменты</h2>
+
+<div class="tool"><h3>Jira</h3><div>
+<ul><li>оформление задач с критериями готовности</li><li>связи задачи с pull request</li><li>фильтры JQL для списка документов в работе</li></ul></div></div>
+
+<div class="tool"><h3>Markdown</h3><div>
+<ul><li>таблицы, блоки кода и примечания</li><li>единый стиль заголовков</li></ul></div></div>
+
+<div class="tool"><h3>Git</h3><div>
+<ul><li>форк, ветки и обновление ветки через rebase</li><li>заголовки pull request и сообщения коммитов по правилам проекта</li></ul></div></div>
+
+<div class="tool"><h3>MS Word</h3><div>
+<ul><li>руководство оператора по структуре ГОСТ 19.505-79, аннотация и содержание</li><li>стили заголовков и автоматическая нумерация разделов</li><li>таблицы с подписями, колонтитулы, нумерация страниц</li></ul></div></div>
+
+<div class="tool"><h3>SQL</h3><div>
+<ul><li>SELECT, GROUP BY, HAVING, ORDER BY</li><li>описание таблиц и полей</li></ul></div></div>
+
+<div class="tool"><h3>Командная строка</h3><div>
+<ul><li>запуск приложений через spark-submit</li><li>локальная сборка документации</li><li>команды Git</li></ul></div></div>
+</section>
+<section id="works">
+<h2>Работы</h2>
+<article class="work"><h3>1. Как запустить приложение Spark командой spark-submit</h3><dl>
+<dt>Для кого</dt><dd>начинающий разработчик или аналитик данных</dd><dt>Задача</dt><dd>провести от установленного Spark до первого запуска: команда, параметры, проверка результата, типичные проблемы</dd><dt>Инструменты</dt><dd>Markdown, Git, командная строка</dd><dt>Что показывает</dt><dd>инструкцию с ожидаемым результатом, таблицей сообщений об ошибках и оговоркой про режим cluster</dd></dl>
+<p class="links"><a href="https://github.com/RejoluWhere/RejoluWhere.github.io/blob/main/works/spark-submit-guide.md" target="_blank" rel="noopener">Открыть документ на GitHub →</a></p></article>
+<article class="work"><h3>2. Spark SQL: готовые запросы с группировкой</h3><dl>
+<dt>Для кого</dt><dd>аналитик, который знает основы SQL</dd><dt>Задача</dt><dd>собрать запросы под типовые вопросы о данных, чтобы их можно было скопировать и выполнить</dd><dt>Инструменты</dt><dd>SQL, Markdown</dd><dt>Что показывает</dt><dd>перевод синтаксиса справочника в вопросы пользователя; результаты запросов я пересчитал вручную по данным</dd></dl>
+<p class="links"><a href="https://github.com/RejoluWhere/RejoluWhere.github.io/blob/main/works/spark-sql-groupby.md" target="_blank" rel="noopener">Открыть документ на GitHub →</a></p></article>
+<article class="work"><h3>3. Как исправить документацию Spark и собрать её локально</h3><dl>
+<dt>Для кого</dt><dd>человек, который заметил ошибку в документации проекта</dd><dt>Задача</dt><dd>описать путь правки от форка до pull request и локальную сборку сайта документации</dd><dt>Инструменты</dt><dd>Git, командная строка, Markdown</dd><dt>Что показывает</dt><dd>как отличить мелкую правку (без Jira) от содержательной; форк, ветки, rebase, локальная сборка</dd></dl>
+<p class="links"><a href="https://github.com/RejoluWhere/RejoluWhere.github.io/blob/main/works/spark-docs-contribution.md" target="_blank" rel="noopener">Открыть документ на GitHub →</a></p></article>
+<article class="work"><h3>4. Руководство оператора в Word</h3><dl>
+<dt>Для кого</dt><dd>оператор, который запускает приложения Spark из командной строки</dd>
+<dt>Задача</dt><dd>учебный пример руководства оператора с использованием структуры ГОСТ 19.505-79</dd>
+<dt>Инструменты</dt><dd>MS Word</dd>
+<dt>Что показывает</dt><dd>аннотацию и содержание, стили заголовков, автоматическую нумерацию разделов, таблицы с подписями, колонтитулы</dd></dl>
+<p class="links"><a href="https://github.com/RejoluWhere/RejoluWhere.github.io/raw/main/works/spark-submit-operator-guide.docx">Скачать документ .docx →</a></p></article>
+<article class="work"><h3>5. Макет задачи в Jira</h3><dl>
+<dt>Задача</dt><dd>показать, как я оформляю задачу на документацию</dd>
+<dt>Инструменты</dt><dd>Jira</dd>
+<dt>Что показывает</dt><dd>критерии готовности, связь с pull request и JQL-фильтр. Это макет: такой задачи в Jira проекта Spark нет</dd></dl>
+<details><summary>Показать макет</summary>
+<p class="cap">Задача на документацию в Jira проекта Spark. Номер условный, в реальном Jira такой задачи нет. Реальные тикеты проекта ведутся на английском.</p>
+<div class="jira">
+<div class="jh"><b>SPARK-XXXXX</b><span class="chip">Improvement</span><span class="chip hi">Minor</span><span class="chip st">Open</span></div>
+<h3>Описать запуск приложения через spark-submit (русскоязычная справка)</h3>
+<dl>
+<dt>Проект</dt><dd>Spark</dd>
+<dt>Компонент</dt><dd>Documentation</dd>
+<dt>Связано с</dt><dd>Pull Request «[SPARK-XXXXX][DOCS] ...» в apache/spark</dd>
+<dt>Исполнитель</dt><dd>Технический писатель</dd>
+</dl>
+<p><b>Цель.</b> Подготовить справку по запуску приложений через <code>spark-submit</code> на основе страницы Submitting Applications в документации Spark.</p>
+<p><b>Критерии готовности</b></p>
+<ul>
+<li>описаны синтаксис команды и основные параметры;</li>
+<li>приведена таблица значений <code>--master</code>;</li>
+<li>пример запуска выполнен локально, результат совпадает с описанием;</li>
+<li>даны ссылки на оригинальную страницу документации;</li>
+<li>текст прошёл ревью.</li>
+</ul>
+</div>
+<pre class="code" style="border-radius:10px;margin-top:12px">project = SPARK AND component = Documentation AND status = Open
+ORDER BY updated DESC</pre>
+</details></article>
+
+<p class="cap">Основа работ: <a href="https://spark.apache.org/docs/latest/submitting-applications.html" target="_blank" rel="noopener">Submitting Applications</a> · <a href="https://spark.apache.org/docs/latest/sql-ref-syntax-qry-select-groupby.html" target="_blank" rel="noopener">GROUP BY</a> · <a href="https://spark.apache.org/contributing.html" target="_blank" rel="noopener">Contributing to Spark</a> · <a href="https://github.com/apache/spark/blob/master/docs/README.md" target="_blank" rel="noopener">docs/README.md</a>. Apache Spark распространяется по лицензии Apache 2.0.</p>
+</section>
+</main>
+</div>
+<script>
+var links=document.querySelectorAll('nav a');
+if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id)})}})},{rootMargin:'-30% 0px -60% 0px'});
+document.querySelectorAll('section').forEach(function(x){io.observe(x)})}
+</script>
+</body>
+</html>
