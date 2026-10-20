@@ -14,8 +14,4 @@
 | `works/spark-docs-contribution.md` | Как исправить документацию Spark и собрать её локально |
 | `works/spark-tz-gost-34-602.docx` | Техническое задание в Word, структура разделов по ГОСТ 34.602-2020 |
 
-## Как обновить сайт
-
-1. Измените файл и сохраните.
-2. `git add`, `git commit`, `git push`.
-3. GitHub Pages пересоберёт сайт за 1–2 минуты.
+##Сайт сделан через Claude sonet :rage3:
