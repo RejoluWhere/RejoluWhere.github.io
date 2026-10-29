@@ -13,6 +13,6 @@
 | `works/spark-sql-groupby.md` | Готовые запросы Spark SQL с группировкой |
 | `works/spark-docs-contribution.md` | Как исправить документацию Spark и собрать её локально |
 | `works/spark-tz-gost-34-602.docx` | Техническое задание в Word, структура разделов по ГОСТ 34.602-2020 |
-| `works/hh_ru_user_manual_v1` | Отдельный проект по руководству пользователя на hh.ru|
+| `works/hh_ru_user_manual_v1` | Отдельный проект по руководству пользователя для работы с сервисом HeadHunter|
 
 ##Сайт сделан через Claude sonet :rage3:
